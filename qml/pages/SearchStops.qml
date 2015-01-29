@@ -77,22 +77,15 @@ Page {
                contentHeight: childrenRect.height
                opacity : 1.0
 
-               Label {
-                   x: Theme.paddingLarge
-                   text: qsTr("Item n")
-                   anchors.verticalCenter: parent.verticalCenter
-               }
+               delegate: BackgroundItem {
+                   id: delegate
 
-               Label {
-                   x: Theme.paddingLarge
-                   text: qsTr("Item n+1")
-                   anchors.verticalCenter: parent.verticalCenter
-               }
-
-               Label {
-                   x: Theme.paddingLarge
-                   text: qsTr("Item n+2")
-                   anchors.verticalCenter: parent.verticalCenter
+                   Label {
+                       x: Theme.paddingLarge
+                       text: qsTr("Item") + " " + index
+                       color: delegate.highlighted ? Theme.highlightColor : Theme.primaryColor
+                   }
+                   onClicked: console.log("Clicked " + index)
                }
             }
         }

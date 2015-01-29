@@ -72,15 +72,7 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Item n</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Item n+1</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Item n+2</source>
+        <source>Item</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

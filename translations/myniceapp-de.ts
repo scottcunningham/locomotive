@@ -73,7 +73,7 @@
     <name>SearchStops</name>
     <message>
         <source>Item</source>
-        <translation type="obsolete">Element</translation>
+        <translation type="unfinished">Element</translation>
     </message>
     <message>
         <source>Search</source>
@@ -89,18 +89,6 @@
     </message>
     <message>
         <source>Locomotive</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Item n</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Item n+1</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Item n+2</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
