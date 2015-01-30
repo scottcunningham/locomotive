@@ -68,25 +68,9 @@ Page {
                 title: qsTr("Locomotive")
             }
 
-            TextEdit {
+            SearchField {
                 text: "Delicious"
-            }
-
-            SilicaListView {
-               anchors.fill: parent
-               contentHeight: childrenRect.height
-               opacity : 1.0
-
-               delegate: BackgroundItem {
-                   id: delegate
-
-                   Label {
-                       x: Theme.paddingLarge
-                       text: qsTr("Item") + " " + index
-                       color: delegate.highlighted ? Theme.highlightColor : Theme.primaryColor
-                   }
-                   onClicked: console.log("Clicked " + index)
-               }
+                width: page.width
             }
         }
     }

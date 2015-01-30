@@ -73,14 +73,14 @@
     <name>SearchStops</name>
     <message>
         <source>Item</source>
-        <translation type="unfinished">Element</translation>
-    </message>
-    <message>
-        <source>Search</source>
-        <translation type="unfinished"></translation>
+        <translation type="obsolete">Element</translation>
     </message>
     <message>
         <source>All stops</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Search</source>
         <translation type="unfinished"></translation>
     </message>
     <message>

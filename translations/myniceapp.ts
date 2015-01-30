@@ -56,11 +56,11 @@
 <context>
     <name>SearchStops</name>
     <message>
-        <source>Search</source>
+        <source>All stops</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>All stops</source>
+        <source>Search</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -69,10 +69,6 @@
     </message>
     <message>
         <source>Locomotive</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Item</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
