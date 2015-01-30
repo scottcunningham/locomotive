@@ -8,7 +8,7 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Item</source>
+        <source>Stop</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -26,7 +26,7 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Item</source>
+        <source>Stop </source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -79,11 +79,11 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Item</source>
+        <source>Add to favourites</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Add to favourites</source>
+        <source>Destination</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

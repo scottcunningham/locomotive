@@ -18,7 +18,7 @@ Page {
 
         SilicaListView {
             id: listView
-            model: 10
+            model: 5
             anchors.fill: parent
             header: PageHeader {
                 title: qsTr("Stop Name (Northbound)")
@@ -28,7 +28,7 @@ Page {
 
                 Label {
                     x: Theme.paddingLarge
-                    text: qsTr("Item") + " " + index
+                    text: qsTr("Destination") + " " + index + "\t\t\t 16:45"
                     anchors.verticalCenter: parent.verticalCenter
                     color: delegate.highlighted ? Theme.highlightColor : Theme.primaryColor
                 }

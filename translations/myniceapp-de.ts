@@ -9,7 +9,11 @@
     </message>
     <message>
         <source>Item</source>
-        <translation type="unfinished">Element</translation>
+        <translation type="obsolete">Element</translation>
+    </message>
+    <message>
+        <source>Stop</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -31,7 +35,11 @@
     </message>
     <message>
         <source>Item</source>
-        <translation type="unfinished">Element</translation>
+        <translation type="obsolete">Element</translation>
+    </message>
+    <message>
+        <source>Stop </source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -111,10 +119,14 @@
     </message>
     <message>
         <source>Item</source>
-        <translation type="unfinished">Element</translation>
+        <translation type="obsolete">Element</translation>
     </message>
     <message>
         <source>Add to favourites</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Destination</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

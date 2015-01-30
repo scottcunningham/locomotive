@@ -16,12 +16,12 @@ Page {
 
             Label {
                 x: Theme.paddingLarge
-                text: qsTr("Item") + " " + index
+                text: qsTr("Stop ") + " " + index + " (Northbound)"
                 anchors.verticalCenter: parent.verticalCenter
                 color: delegate.highlighted ? Theme.highlightColor : Theme.primaryColor
             }
             onClicked: {
-                console.log("Clicked " + index)
+                console.log("Clicked favourite " + index)
                 pageStack.push(Qt.resolvedUrl("ShowStop.qml"))
             }
         }
