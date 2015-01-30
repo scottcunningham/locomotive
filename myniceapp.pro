@@ -26,7 +26,8 @@ OTHER_FILES += qml/myniceapp.qml \
     myniceapp.desktop \
     qml/pages/AllStops.qml \
     qml/pages/FavouriteStops.qml \
-    qml/pages/SearchStops.qml
+    qml/pages/SearchStops.qml \
+    qml/pages/ShowStop.qml
 
 # to disable building translations every time, comment out the
 # following CONFIG line

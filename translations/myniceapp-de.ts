@@ -103,4 +103,19 @@
         <translation type="vanished">Element</translation>
     </message>
 </context>
+<context>
+    <name>ShowStop</name>
+    <message>
+        <source>Stop Name (Northbound)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Item</source>
+        <translation type="unfinished">Element</translation>
+    </message>
+    <message>
+        <source>Add to favourites</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
 </TS>

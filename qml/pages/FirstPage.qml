@@ -86,7 +86,6 @@ Page {
                 color: Theme.secondaryHighlightColor
                 onClicked: pageStack.push(Qt.resolvedUrl("FavouriteStops.qml"))
             }
-
         }
     }
 }

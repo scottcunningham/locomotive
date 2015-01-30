@@ -6,7 +6,7 @@ Page {
     id: page
     SilicaListView {
         id: listView
-        model: 20
+        model: 10
         anchors.fill: parent
         header: PageHeader {
             title: qsTr("Favourites")
@@ -20,7 +20,10 @@ Page {
                 anchors.verticalCenter: parent.verticalCenter
                 color: delegate.highlighted ? Theme.highlightColor : Theme.primaryColor
             }
-            onClicked: console.log("Clicked " + index)
+            onClicked: {
+                console.log("Clicked " + index)
+                pageStack.push(Qt.resolvedUrl("ShowStop.qml"))
+            }
         }
         VerticalScrollDecorator {}
     }

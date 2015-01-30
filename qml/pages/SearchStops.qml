@@ -69,7 +69,8 @@ Page {
             }
 
             SearchField {
-                text: "Delicious"
+                placeholderText: "Station name..."
+                // placeholderColor: red // todo add real colour
                 width: page.width
             }
         }
