@@ -34,7 +34,6 @@ Page {
                 }
                 onClicked: {
                     console.log("Clicked " + index)
-                    pageStack.push(Qt.resolvedUrl("ShowStop.qml"))
                 }
             }
             VerticalScrollDecorator {}
