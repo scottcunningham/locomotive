@@ -12,9 +12,13 @@
 # The name of your application
 TARGET = myniceapp
 
-CONFIG += sailfishapp
+QT += xml
 
-SOURCES += src/myniceapp.cpp
+CONFIG += sailfishapp
+CONFIG += c++11
+
+SOURCES += src/myniceapp.cpp \
+    src/IrishRailDataProvider.cpp
 
 OTHER_FILES += qml/myniceapp.qml \
     qml/cover/CoverPage.qml \
@@ -34,3 +38,5 @@ OTHER_FILES += qml/myniceapp.qml \
 CONFIG += sailfishapp_i18n
 TRANSLATIONS += translations/myniceapp-de.ts
 
+HEADERS += \
+    src/IrishRailDataProvider.h

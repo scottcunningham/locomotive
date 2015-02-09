@@ -7,10 +7,6 @@
         <source>All stops</source>
         <translation type="unfinished"></translation>
     </message>
-    <message>
-        <source>Stop</source>
-        <translation type="unfinished"></translation>
-    </message>
 </context>
 <context>
     <name>CoverPage</name>
@@ -23,10 +19,6 @@
     <name>FavouriteStops</name>
     <message>
         <source>Favourites</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Stop </source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -75,15 +67,11 @@
 <context>
     <name>ShowStop</name>
     <message>
-        <source>Stop Name (Northbound)</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Add to favourites</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Destination</source>
+        <source>Refresh</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

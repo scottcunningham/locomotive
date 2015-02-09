@@ -11,10 +11,6 @@
         <source>Item</source>
         <translation type="obsolete">Element</translation>
     </message>
-    <message>
-        <source>Stop</source>
-        <translation type="unfinished"></translation>
-    </message>
 </context>
 <context>
     <name>CoverPage</name>
@@ -36,10 +32,6 @@
     <message>
         <source>Item</source>
         <translation type="obsolete">Element</translation>
-    </message>
-    <message>
-        <source>Stop </source>
-        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -114,10 +106,6 @@
 <context>
     <name>ShowStop</name>
     <message>
-        <source>Stop Name (Northbound)</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Item</source>
         <translation type="obsolete">Element</translation>
     </message>
@@ -126,7 +114,7 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Destination</source>
+        <source>Refresh</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

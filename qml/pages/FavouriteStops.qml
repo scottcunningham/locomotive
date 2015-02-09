@@ -6,7 +6,7 @@ Page {
     id: page
     SilicaListView {
         id: listView
-        model: 10
+        model: applicationData.getFavouritesLength();
         anchors.fill: parent
         header: PageHeader {
             title: qsTr("Favourites")
@@ -16,7 +16,7 @@ Page {
 
             Label {
                 x: Theme.paddingLarge
-                text: qsTr("Stop ") + " " + index + " (Northbound)"
+                text: applicationData.getFavouritesListAt(index);
                 anchors.verticalCenter: parent.verticalCenter
                 color: delegate.highlighted ? Theme.highlightColor : Theme.primaryColor
             }

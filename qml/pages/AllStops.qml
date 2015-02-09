@@ -6,23 +6,24 @@ Page {
     id: page
     SilicaListView {
         id: listView
-        model: 20
+        model: applicationData.getStopsListLength();
         anchors.fill: parent
         header: PageHeader {
             title: qsTr("All stops")
         }
+
         delegate: BackgroundItem {
             id: delegate
 
             Label {
                 x: Theme.paddingLarge
-                text: qsTr("Stop") + " " + index + " (Southbound)"
+                text: applicationData.getStopsListAt(index);
                 anchors.verticalCenter: parent.verticalCenter
                 color: delegate.highlighted ? Theme.highlightColor : Theme.primaryColor
             }
             onClicked: {
                 console.log("Clicked stop " + index)
-                pageStack.push(Qt.resolvedUrl("ShowStop.qml"))
+                pageStack.push(Qt.resolvedUrl("ShowStop.qml"), {"stopName": applicationData.getStopsListAt(index)})
             }
         }
         VerticalScrollDecorator {}

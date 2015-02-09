@@ -28,11 +28,11 @@
   SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-#ifdef QT_QML_DEBUG
 #include <QtQuick>
-#endif
-
+#include <QStringList>
 #include <sailfishapp.h>
+
+#include "IrishRailDataProvider.h"
 
 
 int main(int argc, char *argv[])
@@ -46,6 +46,17 @@ int main(int argc, char *argv[])
     //
     // To display the view, call "show()" (will show fullscreen on device).
 
-    return SailfishApp::main(argc, argv);
-}
+    //return SailfishApp::main(argc, argv);
 
+    QGuiApplication app(argc, argv);
+
+    QQuickView * view = SailfishApp::createView();
+
+    IrishRailDataProvider provider;
+    view->rootContext()->setContextProperty("applicationData", &provider);
+
+    view->setSource(SailfishApp::pathTo(QString("qml/myniceapp.qml")));
+    view->show();
+
+    return app.exec();
+}
