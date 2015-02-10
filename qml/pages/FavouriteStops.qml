@@ -22,7 +22,7 @@ Page {
             }
             onClicked: {
                 console.log("Clicked favourite " + index)
-                pageStack.push(Qt.resolvedUrl("ShowStop.qml"))
+                pageStack.push(Qt.resolvedUrl("ShowStop.qml"), {"stopName": applicationData.getFavouritesListAt(index)})
             }
         }
         VerticalScrollDecorator {}

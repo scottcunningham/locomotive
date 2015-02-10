@@ -1,9 +1,12 @@
 #include "IrishRailDataProvider.h"
 
+#include <sailfishapp.h>
+
 #include <QtQuick>
 #include <QStringList>
 #include <QList>
-#include <sailfishapp.h>
+#include <QSqlQuery>
+#include <QSqlError>
 
 /*
  * All stops
@@ -44,9 +47,20 @@ QString IrishRailDataProvider::getStopsListLength() {
 
 QStringList IrishRailDataProvider::getFavouritesList() {
     QStringList list;
-    list.append(QString("Fav 1"));
-    list.append(QString("Fav 2"));
-    list.append(QString("Fav 3"));
+
+    QSqlQuery query(this->db);
+    QString query_string = QString("select * from favourites;");
+    bool result = query.exec(query_string);
+    if (!result) {
+        qDebug() << query.lastError().text();
+    }
+    qDebug() << ".tables" << result;
+    while (query.next()) {
+        QString name = query.value(0).toString();
+        qDebug() << name;
+        list.append(name);
+    }
+
     return list;
 }
 
@@ -159,15 +173,38 @@ QList<QMap<QString, QString> > IrishRailDataProvider::parseXML(QString input_str
 IrishRailDataProvider::IrishRailDataProvider() {
     qDebug() << "Data provider initialising";
     QSqlDatabase db = QSqlDatabase::addDatabase("QSQLITE");
-    db.setDatabaseName(QString("database.sqlite3"));
+    db.setDatabaseName(QString(":memory:"));
     this->db = db;
+    this->db.open();
+    QSqlQuery query(this->db);
+    QString query_string = QString("CREATE TABLE IF NOT EXISTS favourites (`stop_name` string, `direction` string);");
+    query.exec(query_string);
 }
-
-
-#include <QSqlQuery>
 
 void IrishRailDataProvider::addToFavourites(QString stop_name) {
     QSqlQuery query(this->db);
-    QString query_string = QString("insert into favourites values (%1, \"Northbound\"").arg(stop_name);
-    query.exec(query_string);
+    QString query_string = QString("insert into favourites (`stop_name`, `direction`) VALUES (\"%1\", \"Northbound\")").arg(stop_name);
+    qDebug() << "In add";
+    bool result = query.exec(query_string);
+    qDebug() << "insert into table" << result;
+    if (!result) {
+        qDebug() << query.lastError().text();
+    }
+    this->printFavourites();
+    qDebug() << "Printed favourites";
+}
+
+void IrishRailDataProvider::printFavourites() {
+    QSqlQuery query(this->db);
+    QString query_string = QString("select * from favourites;");
+    bool result = query.exec(query_string);
+    qDebug() << "select from table" << result;
+    qDebug() << "In print";
+    if (!result) {
+        qDebug() << query.lastError().text();
+    }
+    while (query.next()) {
+        QString name = query.value(0).toString();
+        qDebug() << name;
+    }
 }

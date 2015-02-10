@@ -32,6 +32,7 @@ public:
 
     QSqlDatabase db;
     void setDatabase(QSqlDatabase db);
+    void printFavourites();
 
     IrishRailDataProvider();
 };

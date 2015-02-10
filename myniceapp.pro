@@ -18,21 +18,23 @@ QT += sql
 CONFIG += sailfishapp
 CONFIG += c++11
 
-SOURCES += src/myniceapp.cpp \
-    src/IrishRailDataProvider.cpp
+SOURCES += \
+    src/IrishRailDataProvider.cpp \
+    src/myniceapp.cpp
 
-OTHER_FILES += qml/myniceapp.qml \
+OTHER_FILES += \
     qml/cover/CoverPage.qml \
     qml/pages/FirstPage.qml \
     rpm/myniceapp.changes.in \
     rpm/myniceapp.spec \
     rpm/myniceapp.yaml \
     translations/*.ts \
-    myniceapp.desktop \
     qml/pages/AllStops.qml \
     qml/pages/FavouriteStops.qml \
     qml/pages/SearchStops.qml \
-    qml/pages/ShowStop.qml
+    qml/pages/ShowStop.qml \
+    myniceapp.desktop \
+    qml/myniceapp.qml
 
 # to disable building translations every time, comment out the
 # following CONFIG line

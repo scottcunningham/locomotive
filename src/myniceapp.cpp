@@ -54,6 +54,9 @@ int main(int argc, char *argv[])
     QQuickView * view = SailfishApp::createView();
 
     IrishRailDataProvider provider;
+    provider.printFavourites();
+    provider.printFavourites();
+
     view->rootContext()->setContextProperty("applicationData", &provider);
 
     view->setSource(SailfishApp::pathTo(QString("qml/myniceapp.qml")));
