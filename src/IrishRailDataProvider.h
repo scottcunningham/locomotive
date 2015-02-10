@@ -3,25 +3,37 @@
 
 #include <QtQuick>
 #include <QStringList>
+#include <QSqlDatabase>
 
 class IrishRailDataProvider : public QObject
 {
     Q_OBJECT
 public:
-    Q_INVOKABLE QList<QString> getAllStopsList() const;
-    Q_INVOKABLE QString getStopsListAt(int index) const;
-    Q_INVOKABLE QString getStopsListLength() const;
+    QStringList allStops;
+    void refreshAllStopsList();
+    Q_INVOKABLE QList<QString> getAllStopsList();
+    Q_INVOKABLE QString getStopsListAt(int index);
+    Q_INVOKABLE QString getStopsListLength();
 
-    Q_INVOKABLE QStringList getFavouritesList() const;
-    Q_INVOKABLE QString getFavouritesListAt(int index) const;
-    Q_INVOKABLE QString getFavouritesLength() const;
+    QMap<QString, QStringList> favourites;
+    Q_INVOKABLE void addToFavourites(QString stop_name);
+    Q_INVOKABLE QStringList getFavouritesList();
+    Q_INVOKABLE QString getFavouritesListAt(int index);
+    Q_INVOKABLE QString getFavouritesLength();
 
-    Q_INVOKABLE QStringList getTrainListForStop(QString stop_id) const;
-    Q_INVOKABLE QString getTrainListForStopAt(QString stop_id, int index) const;
-    Q_INVOKABLE QString getTrainListForStopLength(QString stop_id) const;
+    QMap<QString, QStringList> trainsForStop;
+    void refreshTrainListForStop(QString stop_name);
+    Q_INVOKABLE QStringList getTrainListForStop(QString stop_id);
+    Q_INVOKABLE QString getTrainListForStopAt(QString stop_id, int index);
+    Q_INVOKABLE QString getTrainListForStopLength(QString stop_id);
 
-    QString sendRequest(QString) const;
-    QList<QMap<QString, QString> > parseXML(QString input_str) const;
+    QString sendRequest(QString);
+    QList<QMap<QString, QString> > parseXML(QString input_str);
+
+    QSqlDatabase db;
+    void setDatabase(QSqlDatabase db);
+
+    IrishRailDataProvider();
 };
 
 #endif // IRISHRAILDATAPROVIDER_H

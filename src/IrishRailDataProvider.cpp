@@ -3,34 +3,46 @@
 #include <QtQuick>
 #include <QStringList>
 #include <QList>
+#include <sailfishapp.h>
 
 /*
  * All stops
  */
 
-QList<QString> IrishRailDataProvider::getAllStopsList() const {
+void IrishRailDataProvider::refreshAllStopsList() {
     QString response = sendRequest("http://api.irishrail.ie/realtime/realtime.asmx/getAllStationsXML_WithStationType?StationType=D");
+    qDebug() << response;
     auto stopsData = parseXML(response);
     QList<QString> stops;
     for (int i = stopsData.size()-1; i >= 0; --i) {
         stops.append(stopsData[i]["StationDesc"]);
+        qDebug() << stopsData[i]["StationDesc"];
     }
-    return stops;
+    this->allStops = stops;
 }
 
-QString IrishRailDataProvider::getStopsListAt(int index) const {
-    return getAllStopsList()[index];
+QList<QString> IrishRailDataProvider::getAllStopsList() {
+    if (this->allStops.size() == 0) {
+        qDebug() << "Refreshing, size=" << this->allStops.size();
+        this->refreshAllStopsList();
+    }
+    qDebug() << "Size=" << this->allStops.size();
+    return this->allStops;
 }
 
-QString IrishRailDataProvider::getStopsListLength() const {
-    return QString::number(getAllStopsList().size());
+QString IrishRailDataProvider::getStopsListAt(int index) {
+    return this->getAllStopsList()[index];
+}
+
+QString IrishRailDataProvider::getStopsListLength() {
+    return QString::number(this->getAllStopsList().size());
 }
 
 /*
  * Favourites
  */
 
-QStringList IrishRailDataProvider::getFavouritesList() const {
+QStringList IrishRailDataProvider::getFavouritesList() {
     QStringList list;
     list.append(QString("Fav 1"));
     list.append(QString("Fav 2"));
@@ -38,41 +50,46 @@ QStringList IrishRailDataProvider::getFavouritesList() const {
     return list;
 }
 
-QString IrishRailDataProvider::getFavouritesListAt(int index) const {
+QString IrishRailDataProvider::getFavouritesListAt(int index) {
     return getFavouritesList()[index];
 }
 
-QString IrishRailDataProvider::getFavouritesLength() const {
+QString IrishRailDataProvider::getFavouritesLength() {
     return QString::number(getFavouritesList().size());
 }
 
 /*
  * Stop data
  */
-QStringList IrishRailDataProvider::getTrainListForStop(QString stop_name) const {
-    qDebug() << stop_name;
+void IrishRailDataProvider::refreshTrainListForStop(QString stop_name) {
     QString url = QString("http://api.irishrail.ie/realtime/realtime.asmx/getStationDataByNameXML?StationDesc=%1").arg(stop_name);
-    qDebug() << url;
     QString response = sendRequest(url); //.toUtf8().constData());
-    qDebug() << response;
     auto trainsData = parseXML(response);
     QList<QString> trains;
     for (int i = 0; i < trainsData.size(); ++i) {
         if (trainsData[i]["Destination"] != stop_name) {
             QString s = trainsData[i]["Destination"] + " (" + trainsData[i]["Direction"] + ") " + trainsData[i]["Schdepart"];
             trains.append(s); // stopsData[i]["StationDesc"]);
-            qDebug() << trainsData[i]["Destination"] + " (" + trainsData[i]["Direction"] + ") " + trainsData[i]["Schdepart"];
         }
-     }
-    return trains;
+    }
+    this->trainsForStop[stop_name] = trains;
 }
 
-QString IrishRailDataProvider::getTrainListForStopAt(QString stop_id, int index) const {
-    return getTrainListForStop(stop_id)[index];
+QStringList IrishRailDataProvider::getTrainListForStop(QString stop_name) {
+    if (this->trainsForStop[stop_name].size() == 0) {
+        qDebug() << "Refreshing, size=" << this->trainsForStop.size();
+        this->refreshTrainListForStop(stop_name);
+    }
+    qDebug() << "Size=" << this->trainsForStop[stop_name].size();
+    return this->trainsForStop[stop_name];
 }
 
-QString IrishRailDataProvider::getTrainListForStopLength(QString stop_id) const {
-    return QString::number(getTrainListForStop(stop_id).size());
+QString IrishRailDataProvider::getTrainListForStopAt(QString stop_name, int index) {
+    return this->getTrainListForStop(stop_name)[index];
+}
+
+QString IrishRailDataProvider::getTrainListForStopLength(QString stop_name) {
+    return QString::number(this->getTrainListForStop(stop_name).size());
 }
 
 
@@ -84,7 +101,7 @@ QString IrishRailDataProvider::getTrainListForStopLength(QString stop_id) const 
 #include <QUrl>
 #include <QUrlQuery>
 
-QString IrishRailDataProvider::sendRequest(QString url_string) const {
+QString IrishRailDataProvider::sendRequest(QString url_string) {
     // create custom temporary event loop on stack
     QEventLoop eventLoop;
 
@@ -115,7 +132,7 @@ QString IrishRailDataProvider::sendRequest(QString url_string) const {
 
 #include <QDomDocument>
 
-QList<QMap<QString, QString> > IrishRailDataProvider::parseXML(QString input_str) const {
+QList<QMap<QString, QString> > IrishRailDataProvider::parseXML(QString input_str) {
     QDomDocument doc("mydocument");
 
     QList<QMap<QString, QString> > stations;
@@ -137,4 +154,20 @@ QList<QMap<QString, QString> > IrishRailDataProvider::parseXML(QString input_str
         n = n.nextSibling();
     }
     return stations;
+}
+
+IrishRailDataProvider::IrishRailDataProvider() {
+    qDebug() << "Data provider initialising";
+    QSqlDatabase db = QSqlDatabase::addDatabase("QSQLITE");
+    db.setDatabaseName(QString("database.sqlite3"));
+    this->db = db;
+}
+
+
+#include <QSqlQuery>
+
+void IrishRailDataProvider::addToFavourites(QString stop_name) {
+    QSqlQuery query(this->db);
+    QString query_string = QString("insert into favourites values (%1, \"Northbound\"").arg(stop_name);
+    query.exec(query_string);
 }

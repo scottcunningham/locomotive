@@ -13,6 +13,7 @@
 TARGET = myniceapp
 
 QT += xml
+QT += sql
 
 CONFIG += sailfishapp
 CONFIG += c++11

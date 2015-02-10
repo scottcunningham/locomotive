@@ -14,7 +14,10 @@ Page {
         PullDownMenu {
             MenuItem {
                 text: qsTr("Add to favourites")
-                onClicked: console.log("Added.")
+                onClicked: {
+                    console.log("Added.");
+                    applicationData.addToFavourites(page.stopName);
+                }
             }
             MenuItem {
                 text: qsTr("Refresh")
@@ -27,7 +30,7 @@ Page {
             model: applicationData.getTrainListForStopLength(page.stopName)
             anchors.fill: parent
             header: PageHeader {
-                title: page.stopName // qsTr("Stop Name (Northbound)")
+                title: page.stopName
             }
             delegate: BackgroundItem {
                 id: delegate
