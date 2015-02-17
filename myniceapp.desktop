@@ -4,7 +4,3 @@ X-Nemo-Application-Type=silica-qt5
 Icon=myniceapp
 Exec=myniceapp
 Name=myniceapp
-# translation example:
-# your app name in German locale (de)
-Name[de]=myniceapp
-

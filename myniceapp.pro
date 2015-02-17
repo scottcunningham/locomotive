@@ -34,7 +34,8 @@ OTHER_FILES += \
     qml/pages/SearchStops.qml \
     qml/pages/ShowStop.qml \
     myniceapp.desktop \
-    qml/myniceapp.qml
+    qml/myniceapp.qml \
+    qml/pages/ShowDetailedTrainInfo.qml
 
 # to disable building translations every time, comment out the
 # following CONFIG line

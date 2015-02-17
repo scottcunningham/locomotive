@@ -47,18 +47,12 @@ int main(int argc, char *argv[])
     //
     // To display the view, call "show()" (will show fullscreen on device).
 
-    //return SailfishApp::main(argc, argv);
-
     QGuiApplication app(argc, argv);
 
     QQuickView * view = SailfishApp::createView();
 
     IrishRailDataProvider provider;
-    provider.printFavourites();
-    provider.printFavourites();
-
     view->rootContext()->setContextProperty("applicationData", &provider);
-
     view->setSource(SailfishApp::pathTo(QString("qml/myniceapp.qml")));
     view->show();
 

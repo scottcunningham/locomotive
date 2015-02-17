@@ -13,15 +13,24 @@ Page {
         // PullDownMenu and PushUpMenu must be declared in SilicaFlickable, SilicaListView or SilicaGridView
         PullDownMenu {
             MenuItem {
-                text: qsTr("Add to favourites")
+                text: applicationData.isStopInFavourites(page.stopName) ? qsTr("Remove from favourites") : qsTr("Add to favourites");
                 onClicked: {
-                    console.log("Added.");
-                    applicationData.addToFavourites(page.stopName);
+                    if (applicationData.isStopInFavourites(page.stopName)) {
+                        applicationData.removeFromFavourites(page.stopName);
+                    } else {
+                        applicationData.addToFavourites(page.stopName);
+                    }
+                    // Refresh page
+                    pageStack.replace(Qt.resolvedUrl("ShowStop.qml"), {"stopName": page.stopName});
                 }
             }
             MenuItem {
                 text: qsTr("Refresh")
-                onClicked: console.log("Refreshing...")
+                onClicked: {
+                    console.log("Refreshing...")
+                    applicationData.refreshTrainListForStop(page.stopName);
+                    pageStack.replace(Qt.resolvedUrl("ShowStop.qml"), {"stopName": page.stopName});
+                }
             }
         }
 
@@ -43,6 +52,7 @@ Page {
                 }
                 onClicked: {
                     console.log("Clicked " + index)
+                    pageStack.push(Qt.resolvedUrl("ShowDetailedTrainInfo.qml"), {"stopName": page.stopName, "trainIndex": index})
                 }
             }
             VerticalScrollDecorator {}

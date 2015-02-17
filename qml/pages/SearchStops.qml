@@ -33,45 +33,180 @@ import Sailfish.Silica 1.0
 
 
 Page {
-    id: page
+    id: searchPage
+    property string searchString
+    property bool keepSearchFieldFocus
+    property string activeView: "list"
 
-    SilicaFlickable {
+    onSearchStringChanged: listModel.update()
+    Component.onCompleted: listModel.update()
+
+    Loader {
         anchors.fill: parent
+        sourceComponent: activeView == "list" ? listViewComponent : gridViewComponent
+    }
 
-        // PullDownMenu and PushUpMenu must be declared in SilicaFlickable, SilicaListView or SilicaGridView
-        PullDownMenu {
-            MenuItem {
-                text: qsTr("All stops")
-                onClicked: pageStack.push(Qt.resolvedUrl("AllStops.qml"))
-            }
-            MenuItem {
-                text: qsTr("Search")
-                onClicked: pageStack.push(Qt.resolvedUrl("SearchStops.qml"))
-            }
-            MenuItem {
-                text: qsTr("Favourites")
-                onClicked: pageStack.push(Qt.resolvedUrl("FavouriteStops.qml"))
-            }
+    Column {
+        id: headerContainer
+
+        width: searchPage.width
+
+        PageHeader {
+            title: "Search stops"
         }
 
-        // Tell SilicaFlickable the height of its content.
-        contentHeight: column.height
+        SearchField {
+            id: searchField
+            width: parent.width
 
-        // Place our content in a Column.  The PageHeader is always placed at the top
-        // of the page, followed by our content.
-        Column {
-            id: column
+            Binding {
+                target: searchPage
+                property: "searchString"
+                value: searchField.text.toLowerCase().trim()
+            }
+        }
+    }
 
-            width: page.width
-            spacing: Theme.paddingLarge
-            PageHeader {
-                title: qsTr("Locomotive")
+    Component {
+        id: gridViewComponent
+        SilicaGridView {
+            id: gridView
+            model: listModel
+            anchors.fill: parent
+            currentIndex: -1
+            header: Item {
+                id: header
+                width: headerContainer.width
+                height: headerContainer.height
+                Component.onCompleted: headerContainer.parent = header
             }
 
-            SearchField {
-                placeholderText: "Station name..."
-                // placeholderColor: red // todo add real colour
-                width: page.width
+            cellWidth: gridView.width / 3
+            cellHeight: cellWidth
+
+            PullDownMenu {
+                MenuItem {
+                    text: "Switch to list"
+                    onClicked: {
+                        keepSearchFieldFocus = searchField.activeFocus
+                        activeView = "list"
+                    }
+                }
+            }
+
+            delegate: BackgroundItem {
+                id: rectangle
+                width: gridView.cellWidth
+                height: gridView.cellHeight
+                GridView.onAdd: AddAnimation {
+                    target: rectangle
+                }
+                GridView.onRemove: RemoveAnimation {
+                    target: rectangle
+                }
+
+                OpacityRampEffect {
+                    sourceItem: label
+                    offset: 0.5
+                }
+
+                Label {
+                    id: label
+                    x: Theme.paddingMedium; y: Theme.paddingLarge
+                    width: parent.width - y
+                    textFormat: Text.StyledText
+                    color: searchString.length > 0 ? (highlighted ? Theme.secondaryHighlightColor : Theme.secondaryColor)
+                                                   : (highlighted ? Theme.highlightColor : Theme.primaryColor)
+
+                    text: Theme.highlightText(model.text, searchString, Theme.highlightColor)
+                    font {
+                        pixelSize: Theme.fontSizeLarge
+                        family: Theme.fontFamilyHeading
+                    }
+                }
+            }
+
+            VerticalScrollDecorator {}
+
+            Component.onCompleted: {
+                if (keepSearchFieldFocus) {
+                    searchField.forceActiveFocus()
+                }
+                keepSearchFieldFocus = false
+            }
+        }
+    }
+
+    Component {
+        id: listViewComponent
+        SilicaListView {
+            model: listModel
+            anchors.fill: parent
+            currentIndex: -1 // otherwise currentItem will steal focus
+            header:  Item {
+                id: header
+                width: headerContainer.width
+                height: headerContainer.height
+                Component.onCompleted: headerContainer.parent = header
+            }
+
+            PullDownMenu {
+                MenuItem {
+                    text: "Switch to grid"
+                    onClicked: {
+                        keepSearchFieldFocus = searchField.activeFocus
+                        activeView = "grid"
+                    }
+                }
+            }
+
+            delegate: BackgroundItem {
+                id: backgroundItem
+
+                ListView.onAdd: AddAnimation {
+                    target: backgroundItem
+                }
+                ListView.onRemove: RemoveAnimation {
+                    target: backgroundItem
+                }
+
+                Label {
+                    x: searchField.textLeftMargin
+                    anchors.verticalCenter: parent.verticalCenter
+                    color: searchString.length > 0 ? (highlighted ? Theme.secondaryHighlightColor : Theme.secondaryColor)
+                                                   : (highlighted ? Theme.highlightColor : Theme.primaryColor)
+                    textFormat: Text.StyledText
+                    text: Theme.highlightText(model.text, searchString, Theme.highlightColor)
+                }
+            }
+
+            VerticalScrollDecorator {}
+
+            Component.onCompleted: {
+                if (keepSearchFieldFocus) {
+                    searchField.forceActiveFocus()
+                }
+                keepSearchFieldFocus = false
+            }
+        }
+    }
+
+    ListModel {
+        id: listModel
+
+        property variant stops: applicationData.getAllStopsList()
+
+        function update() {
+            var filteredStops = stops.filter(function (stop) { return stop.toLowerCase().indexOf(searchString) !== -1 })
+            while (count > filteredStops.length) {
+                remove(filteredStops.length)
+            }
+            for (var index = 0; index < filteredStops.length; index++) {
+                if (index < count) {
+                    setProperty(index, "text", filteredStops[index])
+                } else {
+                    append({ "text": filteredStops[index]})
+                }
             }
         }
     }

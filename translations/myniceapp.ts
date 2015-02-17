@@ -29,10 +29,6 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Search</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Favourites</source>
         <translation type="unfinished"></translation>
     </message>
@@ -46,25 +42,6 @@
     </message>
 </context>
 <context>
-    <name>SearchStops</name>
-    <message>
-        <source>All stops</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Search</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Favourites</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Locomotive</source>
-        <translation type="unfinished"></translation>
-    </message>
-</context>
-<context>
     <name>ShowStop</name>
     <message>
         <source>Add to favourites</source>
@@ -72,6 +49,10 @@
     </message>
     <message>
         <source>Refresh</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Remove from favourites</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

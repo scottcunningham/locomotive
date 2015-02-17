@@ -22,7 +22,6 @@ Page {
                 color: delegate.highlighted ? Theme.highlightColor : Theme.primaryColor
             }
             onClicked: {
-                console.log("Clicked stop " + index)
                 pageStack.push(Qt.resolvedUrl("ShowStop.qml"), {"stopName": applicationData.getStopsListAt(index)})
             }
         }

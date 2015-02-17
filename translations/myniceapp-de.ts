@@ -53,10 +53,6 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Search</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Favourites</source>
         <translation type="unfinished"></translation>
     </message>
@@ -74,22 +70,6 @@
     <message>
         <source>Item</source>
         <translation type="obsolete">Element</translation>
-    </message>
-    <message>
-        <source>All stops</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Search</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Favourites</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Locomotive</source>
-        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -115,6 +95,10 @@
     </message>
     <message>
         <source>Refresh</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Remove from favourites</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
