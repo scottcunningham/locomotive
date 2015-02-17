@@ -178,6 +178,10 @@ Page {
                     textFormat: Text.StyledText
                     text: Theme.highlightText(model.text, searchString, Theme.highlightColor)
                 }
+
+                onClicked: {
+                    pageStack.push(Qt.resolvedUrl("ShowStop.qml"), {"stopName": model.text})
+                }
             }
 
             VerticalScrollDecorator {}
@@ -205,7 +209,7 @@ Page {
                 if (index < count) {
                     setProperty(index, "text", filteredStops[index])
                 } else {
-                    append({ "text": filteredStops[index]})
+                    append({"text": filteredStops[index]})
                 }
             }
         }
