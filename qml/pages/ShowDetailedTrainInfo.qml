@@ -12,8 +12,66 @@ Page {
     SilicaFlickable {
         anchors.fill: parent
 
-        Text {
-            text: "Test"
+        Column {
+            id: column
+            width: parent.width
+            spacing: Theme.paddingLarge
+
+            PageHeader { title: stopName }
+
+            Label {
+                width: parent.width
+                anchors.topMargin: Theme.paddingLarge
+                anchors.leftMargin: Theme.paddingLarge
+                anchors.rightMargin: Theme.paddingLarge
+                horizontalAlignment: Text.AlignHCenter
+                verticalAlignment: Text.AlignVCenter
+                wrapMode: Text.WrapAtWordBoundaryOrAnywhere
+                textFormat: Text.RichText
+                text: applicationData.getTrainListForStopAt(stopName, trainIndex)
+            }
+            SectionHeader { text: "Train name" }
+
+            Label {
+                width: parent.width
+                anchors.topMargin: Theme.paddingLarge
+                anchors.leftMargin: Theme.paddingLarge
+                anchors.rightMargin: Theme.paddingLarge
+                horizontalAlignment: Text.AlignHCenter
+                verticalAlignment: Text.AlignVCenter
+                wrapMode: Text.WrapAtWordBoundaryOrAnywhere
+                textFormat: Text.RichText
+                text: 'Test'
+            }
+            SectionHeader { text: "Scheduled arrival time" }
+
+            Label {
+                width: parent.width
+                anchors.topMargin: Theme.paddingLarge
+                anchors.leftMargin: Theme.paddingLarge
+                anchors.rightMargin: Theme.paddingLarge
+                horizontalAlignment: Text.AlignHCenter
+                verticalAlignment: Text.AlignVCenter
+                wrapMode: Text.WrapAtWordBoundaryOrAnywhere
+                textFormat: Text.RichText
+                text: 'Test'
+            }
+            SectionHeader { text: "Origin" }
+
+            Label {
+                width: parent.width
+                anchors.topMargin: Theme.paddingLarge
+                anchors.leftMargin: Theme.paddingLarge
+                anchors.rightMargin: Theme.paddingLarge
+                horizontalAlignment: Text.AlignHCenter
+                verticalAlignment: Text.AlignVCenter
+                wrapMode: Text.WrapAtWordBoundaryOrAnywhere
+                textFormat: Text.RichText
+                text: 'Test'
+            }
+            SectionHeader { text: "Train type" }
+
+            VerticalScrollDecorator {}
         }
     }
 }
