@@ -1,6 +1,6 @@
 [Desktop Entry]
 Type=Application
 X-Nemo-Application-Type=silica-qt5
-Icon=myniceapp
-Exec=myniceapp
-Name=myniceapp
+Icon=locomotive
+Exec=locomotive
+Name=locomotive

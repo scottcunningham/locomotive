@@ -53,7 +53,7 @@ int main(int argc, char *argv[])
 
     IrishRailDataProvider provider;
     view->rootContext()->setContextProperty("applicationData", &provider);
-    view->setSource(SailfishApp::pathTo(QString("qml/myniceapp.qml")));
+    view->setSource(SailfishApp::pathTo(QString("qml/locomotive.qml")));
     view->show();
 
     return app.exec();
