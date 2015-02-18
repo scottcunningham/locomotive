@@ -61,19 +61,7 @@ void IrishRailDataProvider::refreshAllStopsList() {
 }
 
 QStringList IrishRailDataProvider::getAllStopsList() {
-    // TODO: Nicer refresh logic here.
-    if (this->allStops.size() == 0) {
-        this->refreshAllStopsList();
-    }
     return this->allStops;
-}
-
-QString IrishRailDataProvider::getStopsListAt(int index) {
-    return this->getAllStopsList()[index];
-}
-
-QString IrishRailDataProvider::getStopsListLength() {
-    return QString::number(this->getAllStopsList().size());
 }
 
 void IrishRailDataProvider::refreshTrainListForStop(QString stop_name) {
@@ -99,14 +87,6 @@ QStringList IrishRailDataProvider::getTrainListForStop(QString stop_name) {
         this->refreshTrainListForStop(stop_name);
     }
     return this->trainsForStop[stop_name];
-}
-
-QString IrishRailDataProvider::getTrainListForStopAt(QString stop_name, int index) {
-    return this->getTrainListForStop(stop_name)[index];
-}
-
-QString IrishRailDataProvider::getTrainListForStopLength(QString stop_name) {
-    return QString::number(this->getTrainListForStop(stop_name).size());
 }
 
 QString IrishRailDataProvider::sendRequest(QString url_string) {
@@ -194,14 +174,6 @@ QStringList IrishRailDataProvider::getFavouritesList() {
         favourites.append(name);
     }
     return favourites;
-}
-
-QString IrishRailDataProvider::getFavouritesListAt(int index) {
-    return getFavouritesList()[index];
-}
-
-QString IrishRailDataProvider::getFavouritesLength() {
-    return QString::number(getFavouritesList().size());
 }
 
 bool IrishRailDataProvider::isStopInFavourites(QString stop_name) {

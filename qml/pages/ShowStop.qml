@@ -6,6 +6,25 @@ Page {
     id: page
 
     property string stopName
+
+    function updateModel() {
+        applicationData.refreshTrainListForStop(stopName);
+        var trainsData = applicationData.getTrainListForStop(stopName);
+        listModel.clear();
+        for (var i = 0; i < trainsData.length && i < 20; i++) {
+            var trainData = trainsData[i];
+            listModel.append({"trainName": trainData});
+        }
+    }
+
+    Component.onCompleted: {
+        updateModel();
+    }
+
+    ListModel {
+        id: listModel
+    }
+
     // To enable PullDownMenu, place our content in a SilicaFlickable
     SilicaFlickable {
         anchors.fill: parent
@@ -28,15 +47,14 @@ Page {
                 text: qsTr("Refresh")
                 onClicked: {
                     console.log("Refreshing...")
-                    applicationData.refreshTrainListForStop(page.stopName);
-                    pageStack.replace(Qt.resolvedUrl("ShowStop.qml"), {"stopName": page.stopName});
+                    updateModel();
                 }
             }
         }
 
         SilicaListView {
             id: listView
-            model: applicationData.getTrainListForStopLength(page.stopName)
+            model: listModel
             anchors.fill: parent
             header: PageHeader {
                 title: page.stopName
@@ -46,7 +64,7 @@ Page {
 
                 Label {
                     x: Theme.paddingLarge
-                    text: applicationData.getTrainListForStopAt(page.stopName, index)
+                    text: trainName
                     anchors.verticalCenter: parent.verticalCenter
                     color: delegate.highlighted ? Theme.highlightColor : Theme.primaryColor
                 }

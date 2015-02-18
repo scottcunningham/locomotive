@@ -4,9 +4,28 @@ import Sailfish.Silica 1.0
 
 Page {
     id: page
+
+    function updateModel() {
+        applicationData.refreshAllStopsList();
+        var stopsData = applicationData.getAllStopsList();
+        listModel.clear();
+        for (var i = 0; i < stopsData.length && i < 20; i++) {
+            var stopData = stopsData[i];
+            listModel.append({"stopName": stopData});
+        }
+    }
+
+    Component.onCompleted: {
+        updateModel();
+    }
+
+    ListModel {
+        id: listModel
+    }
+
     SilicaListView {
         id: listView
-        model: applicationData.getStopsListLength();
+        model: listModel
         anchors.fill: parent
         header: PageHeader {
             title: qsTr("All stops")
@@ -17,12 +36,12 @@ Page {
 
             Label {
                 x: Theme.paddingLarge
-                text: applicationData.getStopsListAt(index);
+                text: stopName;
                 anchors.verticalCenter: parent.verticalCenter
                 color: delegate.highlighted ? Theme.highlightColor : Theme.primaryColor
             }
             onClicked: {
-                pageStack.push(Qt.resolvedUrl("ShowStop.qml"), {"stopName": applicationData.getStopsListAt(index)})
+                pageStack.push(Qt.resolvedUrl("ShowStop.qml"), {"stopName": stopName});
             }
         }
         VerticalScrollDecorator {}
