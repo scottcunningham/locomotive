@@ -6,8 +6,8 @@ Page {
     id: page
 
     function updateModel() {
-        applicationData.refreshAllStopsList();
-        var stopsData = applicationData.getFavouritesList();
+        irishRailAPI.refreshAllStopsList();
+        var stopsData = irishRailAPI.getFavouritesList();
         listModel.clear();
         for (var i = 0; i < stopsData.length && i < 20; i++) {
             var stopData = stopsData[i];

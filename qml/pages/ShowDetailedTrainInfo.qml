@@ -28,7 +28,7 @@ Page {
                 verticalAlignment: Text.AlignVCenter
                 wrapMode: Text.WrapAtWordBoundaryOrAnywhere
                 textFormat: Text.RichText
-                text: applicationData.getTrainListForStopAt(stopName, trainIndex)
+                text: irishRailAPI.getTrainListForStopAt(stopName, trainIndex)
             }
             SectionHeader { text: "Train name" }
 

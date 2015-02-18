@@ -1,4 +1,4 @@
-#include "IrishRailDataProvider.h"
+#include "IrishRailAPI.h"
 
 #include <sailfishapp.h>
 #include <QCoreApplication>
@@ -32,15 +32,15 @@ const static QString ADD_FAVOURITE_SQL = "insert into favourites (`stop_name`, `
 const static QString REMOVE_FAVOURITE_SQL = "delete from favourites where `stop_name`=\"%1\"";
 const static QString IS_STOP_FAVOURITE_SQL = "select count(*) from favourites where stop_name=\"%1\"";
 
-IrishRailDataProvider::IrishRailDataProvider() {
+IrishRailAPI::IrishRailAPI() {
     this->initDatabase();
 }
 
-IrishRailDataProvider::~IrishRailDataProvider() {
+IrishRailAPI::~IrishRailAPI() {
     this->db.close();
 }
 
-void IrishRailDataProvider::initDatabase() {
+void IrishRailAPI::initDatabase() {
     QSqlDatabase db = QSqlDatabase::addDatabase(DATABASE_DRIVER);
     db.setDatabaseName(QString(DATABASE_PATH));
     this->db = db;
@@ -50,7 +50,7 @@ void IrishRailDataProvider::initDatabase() {
     query.exec(query_string);
 }
 
-void IrishRailDataProvider::refreshAllStopsList() {
+void IrishRailAPI::refreshAllStopsList() {
     QString response = sendRequest(ALL_STOPS_LIST_API_URL);
     auto stopsData = parseXML(response);
     QList<QString> stops;
@@ -60,11 +60,11 @@ void IrishRailDataProvider::refreshAllStopsList() {
     this->allStops = stops;
 }
 
-QStringList IrishRailDataProvider::getAllStopsList() {
+QStringList IrishRailAPI::getAllStopsList() {
     return this->allStops;
 }
 
-void IrishRailDataProvider::refreshTrainListForStop(QString stop_name) {
+void IrishRailAPI::refreshTrainListForStop(QString stop_name) {
     QString url = QString(TRAIN_LIST_FOR_STOP_API_URL).arg(stop_name);
     QString response = sendRequest(url);
     auto trains_data = parseXML(response);
@@ -82,14 +82,14 @@ void IrishRailDataProvider::refreshTrainListForStop(QString stop_name) {
     this->trainsForStop[stop_name] = trains;
 }
 
-QStringList IrishRailDataProvider::getTrainListForStop(QString stop_name) {
+QStringList IrishRailAPI::getTrainListForStop(QString stop_name) {
     if (this->trainsForStop[stop_name].size() == 0) {
         this->refreshTrainListForStop(stop_name);
     }
     return this->trainsForStop[stop_name];
 }
 
-QString IrishRailDataProvider::sendRequest(QString url_string) {
+QString IrishRailAPI::sendRequest(QString url_string) {
     // create custom temporary event loop on stack
     QEventLoop eventLoop;
 
@@ -117,7 +117,7 @@ QString IrishRailDataProvider::sendRequest(QString url_string) {
     return reply_body;
 }
 
-QList<QMap<QString, QString> > IrishRailDataProvider::parseXML(QString input_xml) {
+QList<QMap<QString, QString> > IrishRailAPI::parseXML(QString input_xml) {
     QList<QMap<QString, QString> > stations;
 
     QDomDocument doc;
@@ -141,7 +141,7 @@ QList<QMap<QString, QString> > IrishRailDataProvider::parseXML(QString input_xml
     return stations;
 }
 
-void IrishRailDataProvider::addToFavourites(QString stop_name) {
+void IrishRailAPI::addToFavourites(QString stop_name) {
     QSqlQuery query(this->db);
     // TODO: Use proper QT SQL API
     QString query_string = QString(ADD_FAVOURITE_SQL).arg(stop_name);
@@ -151,7 +151,7 @@ void IrishRailDataProvider::addToFavourites(QString stop_name) {
     }
 }
 
-void IrishRailDataProvider::removeFromFavourites(QString stop_name) {
+void IrishRailAPI::removeFromFavourites(QString stop_name) {
     QSqlQuery query(this->db);
     // TODO: Use proper QT SQL API
     QString query_string = QString(REMOVE_FAVOURITE_SQL).arg(stop_name);
@@ -161,7 +161,7 @@ void IrishRailDataProvider::removeFromFavourites(QString stop_name) {
     }
 }
 
-QStringList IrishRailDataProvider::getFavouritesList() {
+QStringList IrishRailAPI::getFavouritesList() {
     QStringList favourites;
     QSqlQuery query(this->db);
     QString query_string = QString(GET_FAVOURITES_SQL_QUERY);
@@ -176,7 +176,7 @@ QStringList IrishRailDataProvider::getFavouritesList() {
     return favourites;
 }
 
-bool IrishRailDataProvider::isStopInFavourites(QString stop_name) {
+bool IrishRailAPI::isStopInFavourites(QString stop_name) {
     QSqlQuery query(this->db);
     // TODO: Use proper QT SQL API
     QString query_string = QString(IS_STOP_FAVOURITE_SQL).arg(stop_name);

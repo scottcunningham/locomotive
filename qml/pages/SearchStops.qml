@@ -198,7 +198,7 @@ Page {
     ListModel {
         id: listModel
 
-        property variant stops: applicationData.getAllStopsList()
+        property variant stops: irishRailAPI.getAllStopsList()
 
         function update() {
             var filteredStops = stops.filter(function (stop) { return stop.toLowerCase().indexOf(searchString) !== -1 })

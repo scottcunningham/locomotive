@@ -1,12 +1,12 @@
-#ifndef IRISHRAILDATAPROVIDER_H
-#define IRISHRAILDATAPROVIDER_H
+#ifndef IRISH_RAIL_API_H
+#define IRISH_RAIL_API_H
 
 #include <QtQuick>
 #include <QStringList>
 #include <QSqlDatabase>
 #include <QMap>
 
-class IrishRailDataProvider : public QObject
+class IrishRailAPI : public QObject
 {
     Q_OBJECT
 private:
@@ -21,8 +21,8 @@ private:
     void initDatabase();
 
 public:
-    IrishRailDataProvider();
-    ~IrishRailDataProvider();
+    IrishRailAPI();
+    ~IrishRailAPI();
 
     Q_INVOKABLE void refreshAllStopsList();
     Q_INVOKABLE QStringList getAllStopsList();
@@ -36,4 +36,4 @@ public:
     Q_INVOKABLE QStringList getTrainListForStop(QString stop_id);
 };
 
-#endif // IRISHRAILDATAPROVIDER_H
+#endif // IRISH_RAIL_API_H

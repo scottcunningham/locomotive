@@ -32,7 +32,7 @@
 #include <QStringList>
 #include <sailfishapp.h>
 
-#include "IrishRailDataProvider.h"
+#include "IrishRailAPI.h"
 
 #include <QSqlDatabase>
 
@@ -51,8 +51,8 @@ int main(int argc, char *argv[])
 
     QQuickView * view = SailfishApp::createView();
 
-    IrishRailDataProvider provider;
-    view->rootContext()->setContextProperty("applicationData", &provider);
+    IrishRailAPI api;
+    view->rootContext()->setContextProperty("irishRailAPI", &api);
     view->setSource(SailfishApp::pathTo(QString("qml/locomotive.qml")));
     view->show();
 

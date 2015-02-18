@@ -19,8 +19,8 @@ CONFIG += sailfishapp
 CONFIG += c++11
 
 SOURCES += \
-    src/IrishRailDataProvider.cpp \
-    src/locomotive.cpp
+    src/locomotive.cpp \
+    src/IrishRailAPI.cpp
 
 OTHER_FILES += \
     qml/cover/CoverPage.qml \
@@ -38,4 +38,4 @@ OTHER_FILES += \
     rpm/locomotive.yaml
 
 HEADERS += \
-    src/IrishRailDataProvider.h
+    src/IrishRailAPI.h
