@@ -35,7 +35,8 @@ OTHER_FILES += \
     locomotive.desktop \
     rpm/locomotive.changes.in \
     rpm/locomotive.spec \
-    rpm/locomotive.yaml
+    rpm/locomotive.yaml \
+    qml/pages/ShowDetailedStopInfo.qml
 
 HEADERS += \
     src/IrishRailAPI.h

@@ -53,14 +53,16 @@ void IrishRailAPI::initDatabase() {
 void IrishRailAPI::refreshAllStopsList() {
     QString response = sendRequest(ALL_STOPS_LIST_API_URL);
     auto stopsData = parseXML(response);
-    QList<QString> stops;
+    QVariantList reversedStopsData;
+    // HACK: Reverse the list.
+    // FIXME FIXME FIXME FIXME
     for (int i = stopsData.size()-1; i >= 0; --i) {
-        stops.append(stopsData[i]["StationDesc"]);
+        reversedStopsData.append(stopsData[i]);
     }
-    this->allStops = stops;
+    this->allStops = reversedStopsData;
 }
 
-QStringList IrishRailAPI::getAllStopsList() {
+QVariantList IrishRailAPI::getAllStopsList() {
     return this->allStops;
 }
 
@@ -68,25 +70,18 @@ void IrishRailAPI::refreshTrainListForStop(QString stop_name) {
     QString url = QString(TRAIN_LIST_FOR_STOP_API_URL).arg(stop_name);
     QString response = sendRequest(url);
     auto trains_data = parseXML(response);
-    QList<QString> trains;
+    QVariantList trains;
     for (int i = 0; i < trains_data.size(); ++i) {
-        if (trains_data[i]["Destination"] != stop_name) {
-            // TODO: Align destination to left, time to right
-            // TODO: Change text colour based on whether train late etc.
-            QString s = QString("%1 (%2) %3").arg(trains_data[i]["Destination"])
-                                             .arg(trains_data[i]["Direction"])
-                                             .arg(trains_data[i]["Schdepart"]);
-            trains.append(s);
+        auto trains_data_map = trains_data[i].toMap();
+        if (trains_data_map["Destination"] != stop_name) {
+            trains.append(trains_data);
         }
     }
     this->trainsForStop[stop_name] = trains;
 }
 
-QStringList IrishRailAPI::getTrainListForStop(QString stop_name) {
-    if (this->trainsForStop[stop_name].size() == 0) {
-        this->refreshTrainListForStop(stop_name);
-    }
-    return this->trainsForStop[stop_name];
+QVariantList IrishRailAPI::getTrainListForStop(QString stop_name) {
+    return this->trainsForStop[stop_name].toList();
 }
 
 QString IrishRailAPI::sendRequest(QString url_string) {
@@ -117,8 +112,8 @@ QString IrishRailAPI::sendRequest(QString url_string) {
     return reply_body;
 }
 
-QList<QMap<QString, QString> > IrishRailAPI::parseXML(QString input_xml) {
-    QList<QMap<QString, QString> > stations;
+QVariantList IrishRailAPI::parseXML(QString input_xml) {
+    QVariantList stations;
 
     QDomDocument doc;
     doc.setContent(input_xml);
@@ -128,7 +123,7 @@ QList<QMap<QString, QString> > IrishRailAPI::parseXML(QString input_xml) {
     while(!node.isNull()) {
         QDomElement element = node.toElement();
         if(!element.isNull()) {
-            QMap<QString, QString> station;
+            QVariantMap station;
             for (int i = 0; i < element.childNodes().size(); ++i) {
                 auto child_node = element.childNodes().at(i);
                 QDomElement child_element = child_node.toElement();

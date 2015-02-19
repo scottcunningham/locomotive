@@ -4,18 +4,18 @@
 #include <QtQuick>
 #include <QStringList>
 #include <QSqlDatabase>
-#include <QMap>
+#include <QVariantMap>
 
 class IrishRailAPI : public QObject
 {
     Q_OBJECT
 private:
     QString sendRequest(QString);
-    QList<QMap<QString, QString> > parseXML(QString input_str);
+    QVariantList parseXML(QString input_str);
 
-    QStringList allStops;
-    QMap<QString, QStringList> favourites;
-    QMap<QString, QStringList> trainsForStop;
+    QVariantList allStops;
+    QVariantMap favourites;
+    QVariantMap trainsForStop;
 
     QSqlDatabase db;
     void initDatabase();
@@ -25,7 +25,7 @@ public:
     ~IrishRailAPI();
 
     Q_INVOKABLE void refreshAllStopsList();
-    Q_INVOKABLE QStringList getAllStopsList();
+    Q_INVOKABLE QVariantList getAllStopsList();
 
     Q_INVOKABLE void addToFavourites(QString stop_name);
     Q_INVOKABLE void removeFromFavourites(QString stopName);
@@ -33,7 +33,7 @@ public:
     Q_INVOKABLE QStringList getFavouritesList();
 
     Q_INVOKABLE void refreshTrainListForStop(QString stop_name);
-    Q_INVOKABLE QStringList getTrainListForStop(QString stop_id);
+    Q_INVOKABLE QVariantList getTrainListForStop(QString stop_id);
 };
 
 #endif // IRISH_RAIL_API_H

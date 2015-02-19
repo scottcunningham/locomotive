@@ -11,7 +11,7 @@ Page {
         listModel.clear();
         for (var i = 0; i < stopsData.length && i < 20; i++) {
             var stopData = stopsData[i];
-            listModel.append({"stopName": stopData});
+            listModel.append({"stopData": stopData});
         }
     }
 
@@ -36,12 +36,12 @@ Page {
 
             Label {
                 x: Theme.paddingLarge
-                text: stopName;
+                text: stopData['StationDesc']
                 anchors.verticalCenter: parent.verticalCenter
                 color: delegate.highlighted ? Theme.highlightColor : Theme.primaryColor
             }
             onClicked: {
-                pageStack.push(Qt.resolvedUrl("ShowStop.qml"), {"stopName": stopName});
+                pageStack.push(Qt.resolvedUrl("ShowStop.qml"), {"stopData": stopData});
             }
         }
         VerticalScrollDecorator {}
