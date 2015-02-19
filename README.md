@@ -8,4 +8,4 @@ Allows you to keep a list of favourite stops.
 
 
 Screenshots:
-![All stops view](/../screenshots/screenshots/to/all_stops.jpg?raw=true "View of all stops")
+![All stops view](/../screenshots/screenshots/all_stops.jpg?raw=true "View of all stops")
