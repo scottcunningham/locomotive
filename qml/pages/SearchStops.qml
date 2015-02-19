@@ -37,6 +37,7 @@ Page {
     property string searchString
     property bool keepSearchFieldFocus
     property string activeView: "list"
+    property variant stopData
 
     onSearchStringChanged: listModel.update()
     Component.onCompleted: listModel.update()
@@ -180,7 +181,7 @@ Page {
                 }
 
                 onClicked: {
-                    pageStack.push(Qt.resolvedUrl("ShowStop.qml"), {"stopName": model.text})
+                    pageStack.push(Qt.resolvedUrl("ShowStop.qml"), {"stopData": listModel.getStopDataByName(model.text)})
                 }
             }
 
@@ -198,18 +199,30 @@ Page {
     ListModel {
         id: listModel
 
+        Component.onCompleted: {
+            irishRailAPI.refreshAllStopsList();
+        }
+
         property variant stops: irishRailAPI.getAllStopsList()
 
+        function getStopDataByName(name) {
+            for (var index = 0; index < stops.length; index++) {
+                if (stops[index].StationDesc === name) {
+                    return stops[index];
+                }
+            }
+        }
+
         function update() {
-            var filteredStops = stops.filter(function (stop) { return stop.toLowerCase().indexOf(searchString) !== -1 })
+            var filteredStops = stops.filter(function (stop) { return stop.StationDesc.toLowerCase().indexOf(searchString) !== -1 })
             while (count > filteredStops.length) {
                 remove(filteredStops.length)
             }
             for (var index = 0; index < filteredStops.length; index++) {
                 if (index < count) {
-                    setProperty(index, "text", filteredStops[index])
+                    setProperty(index, "text", filteredStops[index].StationDesc);
                 } else {
-                    append({"text": filteredStops[index]})
+                    append({"text": filteredStops[index].StationDesc})
                 }
             }
         }
