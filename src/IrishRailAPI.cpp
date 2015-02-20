@@ -90,6 +90,18 @@ QVariantList IrishRailAPI::getTrainListForStop(QString stop_name) {
     return this->trainsForStop[stop_name].toList();
 }
 
+QVariantMap IrishRailAPI::getStopByName(QString stop_name) {
+    QVariantMap result;
+    for (auto stop : this->allStops) {
+        auto stop_map = stop.toMap();
+        if (stop_map["StationDesc"] == stop_name) {
+            result = stop_map;
+            break;
+        }
+    }
+    return result;
+}
+
 QString IrishRailAPI::sendRequest(QString url_string) {
     // create custom temporary event loop on stack
     QEventLoop eventLoop;

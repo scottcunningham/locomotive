@@ -26,6 +26,7 @@ public:
 
     Q_INVOKABLE void refreshAllStopsList();
     Q_INVOKABLE QVariantList getAllStopsList();
+    Q_INVOKABLE QVariantMap getStopByName(QString stop_name);
 
     Q_INVOKABLE void addToFavourites(QString stop_name);
     Q_INVOKABLE void removeFromFavourites(QString stopName);

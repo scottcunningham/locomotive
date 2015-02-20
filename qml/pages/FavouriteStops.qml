@@ -41,7 +41,7 @@ Page {
                 color: delegate.highlighted ? Theme.highlightColor : Theme.primaryColor
             }
             onClicked: {
-                pageStack.push(Qt.resolvedUrl("ShowStop.qml"), {"stopName": stopName})
+                pageStack.push(Qt.resolvedUrl("ShowStop.qml"), {"stopData": irishRailAPI.getStopByName(stopName)})
             }
         }
         VerticalScrollDecorator {}
