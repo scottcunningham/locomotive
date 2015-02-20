@@ -10,8 +10,8 @@ Page {
         var stopsData = irishRailAPI.getFavouritesList();
         listModel.clear();
         for (var i = 0; i < stopsData.length && i < 20; i++) {
-            var stopData = stopsData[i];
-            listModel.append({"stopName": stopData});
+            var stopName = stopsData[i];
+            listModel.append({"stopName": stopName});
         }
     }
 

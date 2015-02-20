@@ -41,8 +41,14 @@ IrishRailAPI::~IrishRailAPI() {
 }
 
 void IrishRailAPI::initDatabase() {
+    QString db_root_path = QStandardPaths::writableLocation(QStandardPaths::DataLocation);
+    QDir dir(db_root_path);
+    if (!dir.exists()) {
+        dir.mkpath(db_root_path);
+    }
+    QString db_path = db_root_path + "/" + DATABASE_PATH;
     QSqlDatabase db = QSqlDatabase::addDatabase(DATABASE_DRIVER);
-    db.setDatabaseName(QString(DATABASE_PATH));
+    db.setDatabaseName(QString(db_path));
     this->db = db;
     this->db.open();
     QSqlQuery query(this->db);

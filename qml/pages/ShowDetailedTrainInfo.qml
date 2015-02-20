@@ -7,15 +7,25 @@ Page {
 
     property variant trainData
 
+    Component.onCompleted: {
+        console.log(trainData);
+        console.log(trainData.Destination);
+    }
+
     SilicaFlickable {
         anchors.fill: parent
+
+        Component.onCompleted: {
+            console.log(trainData);
+            console.log(trainData.Destination);
+        }
 
         Column {
             id: column
             width: parent.width
             spacing: Theme.paddingLarge
 
-            PageHeader { title: stopName }
+            PageHeader { title: trainData.StationDesc }
 
             Label {
                     width: parent.width
@@ -26,7 +36,7 @@ Page {
                     verticalAlignment: Text.AlignVCenter
                     wrapMode: Text.WrapAtWordBoundaryOrAnywhere
                     textFormat: Text.RichText
-                    text: trainData.TrainCode
+                    text: trainData.Traincode
             }
             SectionHeader { text: "Train code" }
 
@@ -39,7 +49,7 @@ Page {
                     verticalAlignment: Text.AlignVCenter
                     wrapMode: Text.WrapAtWordBoundaryOrAnywhere
                     textFormat: Text.RichText
-                    text: trainData.StationFullName
+                    text: trainData.Stationfullname
             }
             SectionHeader { text: "Full station name" }
 
@@ -52,7 +62,7 @@ Page {
                     verticalAlignment: Text.AlignVCenter
                     wrapMode: Text.WrapAtWordBoundaryOrAnywhere
                     textFormat: Text.RichText
-                    text: trainData.StationCode
+                    text: trainData.Stationcode
             }
             SectionHeader { text: "Station code" }
 
@@ -65,7 +75,7 @@ Page {
                 verticalAlignment: Text.AlignVCenter
                 wrapMode: Text.WrapAtWordBoundaryOrAnywhere
                 textFormat: Text.RichText
-                text: trainData.QueryTime
+                text: trainData.Querytime
             }
 
             SectionHeader { text: "Query time" }
@@ -78,7 +88,7 @@ Page {
                     verticalAlignment: Text.AlignVCenter
                     wrapMode: Text.WrapAtWordBoundaryOrAnywhere
                     textFormat: Text.RichText
-                    text: trainData.TrainDate
+                    text: trainData.Traindate
             }
             SectionHeader { text: "Date" }
 
@@ -117,7 +127,7 @@ Page {
                     verticalAlignment: Text.AlignVCenter
                     wrapMode: Text.WrapAtWordBoundaryOrAnywhere
                     textFormat: Text.RichText
-                    text: trainData.OriginTime
+                    text: trainData.Origintime
             }
             SectionHeader { text: "Origin time" }
 
@@ -130,7 +140,7 @@ Page {
                     verticalAlignment: Text.AlignVCenter
                     wrapMode: Text.WrapAtWordBoundaryOrAnywhere
                     textFormat: Text.RichText
-                    text: trainData.DestinationTime
+                    text: trainData.Destinationtime
             }
             SectionHeader { text: "Destination time" }
 
@@ -156,7 +166,7 @@ Page {
                     verticalAlignment: Text.AlignVCenter
                     wrapMode: Text.WrapAtWordBoundaryOrAnywhere
                     textFormat: Text.RichText
-                    text: trainData.LastLocation
+                    text: trainData.Lastlocation
             }
             SectionHeader { text: "Last location" }
 
@@ -169,7 +179,7 @@ Page {
                     verticalAlignment: Text.AlignVCenter
                     wrapMode: Text.WrapAtWordBoundaryOrAnywhere
                     textFormat: Text.RichText
-                    text: trainData.DueIn + ' mins'
+                    text: trainData.Duein + ' mins'
             }
             SectionHeader { text: "Due in" }
 
@@ -195,7 +205,7 @@ Page {
                     verticalAlignment: Text.AlignVCenter
                     wrapMode: Text.WrapAtWordBoundaryOrAnywhere
                     textFormat: Text.RichText
-                    text: trainData.ExpArrival
+                    text: trainData.Exparrival
             }
             SectionHeader { text: "Expected arrival time" }
 
@@ -208,7 +218,7 @@ Page {
                     verticalAlignment: Text.AlignVCenter
                     wrapMode: Text.WrapAtWordBoundaryOrAnywhere
                     textFormat: Text.RichText
-                    text: trainData.ExpDepart
+                    text: trainData.Expdepart
             }
             SectionHeader { text: "Expected departure time" }
 
@@ -221,7 +231,7 @@ Page {
                     verticalAlignment: Text.AlignVCenter
                     wrapMode: Text.WrapAtWordBoundaryOrAnywhere
                     textFormat: Text.RichText
-                    text: trainData.SchArrival
+                    text: trainData.Scharrival
             }
             SectionHeader { text: "Scheduled arrival time" }
 
@@ -234,7 +244,7 @@ Page {
                     verticalAlignment: Text.AlignVCenter
                     wrapMode: Text.WrapAtWordBoundaryOrAnywhere
                     textFormat: Text.RichText
-                    text: trainData.SchDepart
+                    text: trainData.Schdepart
             }
             SectionHeader { text: "Scheduled departure time" }
 
@@ -260,7 +270,7 @@ Page {
                     verticalAlignment: Text.AlignVCenter
                     wrapMode: Text.WrapAtWordBoundaryOrAnywhere
                     textFormat: Text.RichText
-                    text: trainData.TrainType
+                    text: trainData.Traintype
             }
             SectionHeader { text: "Train Type" }
 
@@ -273,9 +283,10 @@ Page {
                     verticalAlignment: Text.AlignVCenter
                     wrapMode: Text.WrapAtWordBoundaryOrAnywhere
                     textFormat: Text.RichText
-                    text: trainData.LocationType
+                    text: trainData.Locationtype
             }
             SectionHeader { text: "LocationType" }
         }
+        VerticalScrollDecorator {}
     }
 }

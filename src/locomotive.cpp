@@ -51,6 +51,8 @@ int main(int argc, char *argv[])
 
     QQuickView * view = SailfishApp::createView();
 
+    QCoreApplication::setApplicationName("locomotive");
+
     IrishRailAPI api;
     view->rootContext()->setContextProperty("irishRailAPI", &api);
     view->setSource(SailfishApp::pathTo(QString("qml/locomotive.qml")));

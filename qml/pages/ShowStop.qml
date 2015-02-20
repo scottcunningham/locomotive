@@ -8,7 +8,6 @@ Page {
     property variant stopData
 
     function updateModel() {
-        irishRailAPI.refreshTrainListForStop(stopData);
         irishRailAPI.refreshTrainListForStop(stopData.StationDesc);
         var trainsData = irishRailAPI.getTrainListForStop(stopData.StationDesc);
         listModel.clear();
@@ -33,15 +32,15 @@ Page {
         // PullDownMenu and PushUpMenu must be declared in SilicaFlickable, SilicaListView or SilicaGridView
         PullDownMenu {
             MenuItem {
-                text: irishRailAPI.isStopInFavourites(page.stopName) ? qsTr("Remove from favourites") : qsTr("Add to favourites");
+                text: irishRailAPI.isStopInFavourites(page.stopData.StationDesc) ? qsTr("Remove from favourites") : qsTr("Add to favourites");
                 onClicked: {
-                    if (irishRailAPI.isStopInFavourites(page.stopName)) {
-                        irishRailAPI.removeFromFavourites(page.stopName);
+                    if (irishRailAPI.isStopInFavourites(page.stopData.StationDesc)) {
+                        irishRailAPI.removeFromFavourites(page.stopData.StationDesc);
                     } else {
-                        irishRailAPI.addToFavourites(page.stopName);
+                        irishRailAPI.addToFavourites(page.stopData.StationDesc);
                     }
                     // Refresh page
-                    pageStack.replace(Qt.resolvedUrl("ShowStop.qml"), {"stopName": page.stopName});
+                    pageStack.replace(Qt.resolvedUrl("ShowStop.qml"), {"stopData": page.stopData});
                 }
             }
             MenuItem {
