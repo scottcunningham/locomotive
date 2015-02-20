@@ -28,9 +28,9 @@ const static QString INIT_FAVOURITES_SQL = "CREATE TABLE IF NOT EXISTS favourite
                                            "(`stop_name` string, `direction` string);";
 const static QString GET_FAVOURITES_SQL_QUERY = "SELECT * FROM favourites;";
 const static QString ADD_FAVOURITE_SQL = "insert into favourites (`stop_name`, `direction`)"
-                                         "VALUES (\"%1\", \"Northbound\")";
-const static QString REMOVE_FAVOURITE_SQL = "delete from favourites where `stop_name`=\"%1\"";
-const static QString IS_STOP_FAVOURITE_SQL = "select count(*) from favourites where stop_name=\"%1\"";
+                                         "VALUES (?, \"Northbound\")";
+const static QString REMOVE_FAVOURITE_SQL = "delete from favourites where `stop_name`=?";
+const static QString IS_STOP_FAVOURITE_SQL = "select count(*) from favourites where stop_name=?";
 
 IrishRailAPI::IrishRailAPI() {
     this->initDatabase();
@@ -156,9 +156,9 @@ QVariantList IrishRailAPI::parseXML(QString input_xml) {
 
 void IrishRailAPI::addToFavourites(QString stop_name) {
     QSqlQuery query(this->db);
-    // TODO: Use proper QT SQL API
-    QString query_string = QString(ADD_FAVOURITE_SQL).arg(stop_name);
-    bool result = query.exec(query_string);
+    query.prepare(ADD_FAVOURITE_SQL);
+    query.addBindValue(stop_name);
+    bool result = query.exec();
     if (!result) {
         qDebug() << query.lastError().text();
     }
@@ -166,9 +166,9 @@ void IrishRailAPI::addToFavourites(QString stop_name) {
 
 void IrishRailAPI::removeFromFavourites(QString stop_name) {
     QSqlQuery query(this->db);
-    // TODO: Use proper QT SQL API
-    QString query_string = QString(REMOVE_FAVOURITE_SQL).arg(stop_name);
-    bool result = query.exec(query_string);
+    query.prepare(REMOVE_FAVOURITE_SQL);
+    query.addBindValue(stop_name);
+    bool result = query.exec();
     if (!result) {
         qDebug() << query.lastError().text();
     }
@@ -177,8 +177,7 @@ void IrishRailAPI::removeFromFavourites(QString stop_name) {
 QStringList IrishRailAPI::getFavouritesList() {
     QStringList favourites;
     QSqlQuery query(this->db);
-    QString query_string = QString(GET_FAVOURITES_SQL_QUERY);
-    bool result = query.exec(query_string);
+    bool result = query.exec(GET_FAVOURITES_SQL_QUERY);
     if (!result) {
         qDebug() << query.lastError().text();
     }
@@ -192,8 +191,9 @@ QStringList IrishRailAPI::getFavouritesList() {
 bool IrishRailAPI::isStopInFavourites(QString stop_name) {
     QSqlQuery query(this->db);
     // TODO: Use proper QT SQL API
-    QString query_string = QString(IS_STOP_FAVOURITE_SQL).arg(stop_name);
-    bool result = query.exec(query_string);
+    query.prepare(IS_STOP_FAVOURITE_SQL);
+    query.addBindValue(stop_name);
+    bool result = query.exec();
     if (!result) {
         qDebug() << query.lastError().text();
     }
