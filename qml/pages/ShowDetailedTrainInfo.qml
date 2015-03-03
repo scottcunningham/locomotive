@@ -12,7 +12,7 @@ Page {
         console.log(trainData.Destination);
     }
 
-    SilicaFlickable {
+    SilicaListView {
         anchors.fill: parent
 
         Component.onCompleted: {

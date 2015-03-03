@@ -70,11 +70,30 @@ Page {
                 id: delegate
 
                 Label {
+                    id: dest
                     x: Theme.paddingLarge
-                    text: trainData.Destination + ' (' + trainData.Direction + ') ' + trainData.Schdepart;
+                    text: trainData.Destination + ' (' + trainData.Direction + ') ';
                     anchors.verticalCenter: parent.verticalCenter
                     color: delegate.highlighted ? Theme.highlightColor : Theme.primaryColor
+                    font.pixelSize: Theme.fontSizeMedium
+                    truncationMode: TruncationMode.Fade
+                    anchors {
+                        left: parent.left
+                        right: date.left
+                        rightMargin: Theme.paddingSmall
+                    }
                 }
+                Label {
+                    id: date
+                    text: trainData.Schdepart
+                    font.pixelSize: Theme.fontSizeMedium
+                    horizontalAlignment: Text.AlignRight
+                    anchors {
+                        right: parent.right
+                        baseline: dest.baseline
+                    }
+                }
+
                 onClicked: {
                     console.log("Clicked " + index)
                     pageStack.push(Qt.resolvedUrl("ShowDetailedTrainInfo.qml"), {"trainData": trainData})

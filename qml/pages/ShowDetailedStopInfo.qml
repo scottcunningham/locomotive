@@ -8,7 +8,7 @@ Page {
     property variant stopData
 
     // To enable PullDownMenu, place our content in a SilicaFlickable
-    SilicaFlickable {
+    SilicaListView {
         anchors.fill: parent
 
         Column {
@@ -83,7 +83,7 @@ Page {
             }
             SectionHeader { text: "Longitude" }
 
-            VerticalScrollDecorator {}
         }
+        VerticalScrollDecorator {}
     }
 }
