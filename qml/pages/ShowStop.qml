@@ -10,11 +10,14 @@ Page {
     function updateModel() {
         irishRailAPI.refreshTrainListForStop(stopData.StationDesc);
         var trainsData = irishRailAPI.getTrainListForStop(stopData.StationDesc);
-        trainsData = trainsData.Northbound.concat(trainsData.Southbound);
         listModel.clear();
-        for (var i = 0; i < trainsData.length && i < 20; i++) {
-            var trainData = trainsData[i];
-            listModel.append({"trainData": trainData});
+        for (var i = 0; i < trainsData.Northbound.length && i < 20; i++) {
+            var trainData = trainsData.Northbound[i];
+            listModel.append({"trainData": trainData, "section": "Northbound"});
+        }
+        for (var i = 0; i < trainsData.Southbound.length && i < 20; i++) {
+            var trainData = trainsData.Southbound[i];
+            listModel.append({"trainData": trainData, "section": "Southbound"});
         }
     }
 
@@ -67,13 +70,23 @@ Page {
             header: PageHeader {
                 title: stopData.StationDesc
             }
+
+            section {
+                property: 'section'
+
+                delegate: SectionHeader {
+                    text: section
+                    height: Theme.itemSizeExtraSmall
+                }
+            }
+
             delegate: BackgroundItem {
                 id: delegate
 
                 Label {
                     id: dest
                     x: Theme.paddingLarge
-                    text: trainData.Destination + ' (' + trainData.Direction + ') ';
+                    text: trainData.Destination
                     anchors.verticalCenter: parent.verticalCenter
                     color: delegate.highlighted ? Theme.highlightColor : Theme.primaryColor
                     font.pixelSize: Theme.fontSizeMedium
