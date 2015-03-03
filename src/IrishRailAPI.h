@@ -34,7 +34,7 @@ public:
     Q_INVOKABLE QStringList getFavouritesList();
 
     Q_INVOKABLE void refreshTrainListForStop(QString stop_name);
-    Q_INVOKABLE QVariantList getTrainListForStop(QString stop_id);
+    Q_INVOKABLE QVariant getTrainListForStop(QString stop_id);
 };
 
 #endif // IRISH_RAIL_API_H

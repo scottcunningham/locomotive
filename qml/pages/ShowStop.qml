@@ -10,6 +10,7 @@ Page {
     function updateModel() {
         irishRailAPI.refreshTrainListForStop(stopData.StationDesc);
         var trainsData = irishRailAPI.getTrainListForStop(stopData.StationDesc);
+        trainsData = trainsData.Northbound.concat(trainsData.Southbound);
         listModel.clear();
         for (var i = 0; i < trainsData.length && i < 20; i++) {
             var trainData = trainsData[i];

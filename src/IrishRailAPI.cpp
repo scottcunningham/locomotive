@@ -86,8 +86,24 @@ void IrishRailAPI::refreshTrainListForStop(QString stop_name) {
     this->trainsForStop[stop_name] = trains;
 }
 
-QVariantList IrishRailAPI::getTrainListForStop(QString stop_name) {
-    return this->trainsForStop[stop_name].toList();
+QVariant IrishRailAPI::getTrainListForStop(QString stop_name) {
+    QVariantList northbound;
+    QVariantList southbound;
+    auto trains_list = this->trainsForStop[stop_name].toList();
+    for (auto train : trains_list) {
+        auto train_map = train.toMap();
+        QString direction = train_map["Direction"].toString();
+        if (direction == "Northbound") {
+            northbound.append(train_map);
+        }
+        else if (direction == "Southbound") {
+            southbound.append(train_map);
+        }
+    }
+    QVariantMap trains;
+    trains["Northbound"] = northbound;
+    trains["Southbound"] = southbound;
+    return trains;
 }
 
 QVariantMap IrishRailAPI::getStopByName(QString stop_name) {
